@@ -20,7 +20,11 @@
 
 ## 3. Dự đoán và thực tế
 
-*Chọn 3 dự đoán `predict(...)` lệch nhiều nhất so với kết quả. Mỗi cái: bạn đoán gì, ra gì, vì sao lệch.*
+F1 của BoW + Logistic Regression (ml_f1). Em dự đoán F1 khoảng 0,85 và precision cao hơn recall. Kết quả trên tập test là F1 = 0,885, precision 0,988 và recall 0,802. Em đoán đúng thứ tự của hai chỉ số nhưng đánh giá F1 thấp hơn thực tế 0,035. Mô hình chỉ gắn nhầm 1 tin ham thành spam ở ngưỡng 0.5, nên precision vẫn rất cao dù mô hình bỏ sót 20 trong 101 tin spam.
+
+Mô hình nằm trên đường Pareto (tradeoff). Em dự đoán ít nhất một mô hình BoW sẽ nằm trên đường Pareto, MiniLM có thể góp mặt nếu cải thiện F1, và cả ba phương án LLM sẽ vượt SLA 50 ms. Kết quả có BoW + LogReg, BoW + MLP và LLM lớn zero-shot trên đường Pareto. MiniLM không góp mặt vì các phương án MiniLM đều đạt F1 = 0,947 trên SUB 40, bằng BoW + MLP nhưng có p95 cao hơn. Dự đoán về SLA của ba phương án LLM khớp kết quả.
+
+Độ bền của LLM trên 50 tin khó (hard_eval). Em dự đoán LLM nhỏ zero-shot đạt khoảng 75% accuracy và gặp khó nhất ở nhóm prompt injection. Thực tế, mô hình đạt 98%, đúng cả 6/6 tin trong nhóm prompt injection và chỉ sai 1/10 tin ở nhóm tưởng spam nhưng không phải. Em đã đánh giá quá cao độ khó của sáu mẫu chèn chỉ dẫn trong bộ này. Lỗi quan sát được lại nằm ở việc phân biệt tin hợp lệ có dấu hiệu giống spam.
 
 ## 4. Phân tích 50 case khó
 
